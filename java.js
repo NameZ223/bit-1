@@ -16,7 +16,7 @@ modoBtn.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
 });
 
-// Animación al hacer scroll
+
 const animarElementos = document.querySelectorAll('.animar');
 
 const observer = new IntersectionObserver(entries => {

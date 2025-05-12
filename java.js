@@ -1,60 +1,66 @@
-// Menú hamburguesa
-const menuToggle = document.getElementById('menuToggle');
-const enlaces = document.getElementById('enlaces');
-menuToggle.addEventListener('click', () => {
-  enlaces.classList.toggle('activo');
-});
+// 1. **Modo Oscuro**: Activar y desactivar el modo oscuro
+const darkModeButton = document.getElementById("modoBtn");
+const body = document.body;
 
-// Botón modo oscuro
-const modoBtn = document.createElement('button');
-modoBtn.innerHTML = '🌙';
-modoBtn.classList.add('modo-btn');
-document.querySelector('.header .contenedor-header').appendChild(modoBtn);
-
-modoBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-});
-
-// Animación al hacer scroll
-const animarElementos = document.querySelectorAll('.animar');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-
-animarElementos.forEach(el => observer.observe(el));
-
-// Efecto sonido en botones gamer
-const botonesGamer = document.querySelectorAll('.boton-proyecto');
-botonesGamer.forEach(boton => {
-  boton.addEventListener('mouseenter', () => {
-    const beep = new Audio('https://freesound.org/data/previews/341/341695_6261675-lq.mp3');
-    beep.volume = 0.1;
-    beep.play();
-  });
-});
-
-// Botón scroll arriba
-const scrollBtn = document.getElementById('scrollTopBtn');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    scrollBtn.style.display = 'block';
+darkModeButton.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+  // Guardar preferencia en localStorage
+  if (body.classList.contains("dark-mode")) {
+    localStorage.setItem("darkMode", "enabled");
   } else {
-    scrollBtn.style.display = 'none';
+    localStorage.setItem("darkMode", "disabled");
   }
 });
-scrollBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+// Al cargar la página, recuperar el modo desde localStorage
+if (localStorage.getItem("darkMode") === "enabled") {
+  body.classList.add("dark-mode");
+}
+
+// 2. **Botón Scroll al Inicio (↑)**: Mostrar el botón cuando el usuario hace scroll
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+  if (document.documentElement.scrollTop > 300) {
+    scrollTopBtn.style.display = "block";
+  } else {
+    scrollTopBtn.style.display = "none";
+  }
 });
 
-// Parallax en Hero
-const hero = document.querySelector('.hero');
-hero.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-  hero.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// 3. **Menú Hamburguesa**: Toggle para el menú en dispositivos pequeños
+const menuToggle = document.getElementById("menuToggle");
+const enlaces = document.getElementById("enlaces");
+
+menuToggle.addEventListener("click", () => {
+  enlaces.classList.toggle("activo");
+});
+
+// 4. **Animación de proyectos**: Activar animación cuando se vea en pantalla
+const proyectos = document.querySelectorAll(".proyecto-card");
+
+const activarAnimacion = () => {
+  proyectos.forEach(proyecto => {
+    const rect = proyecto.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      proyecto.classList.add("animar");
+    } else {
+      proyecto.classList.remove("animar");
+    }
+  });
+};
+
+window.addEventListener("scroll", activarAnimacion);
+activarAnimacion(); // Llamar al cargar la página
+
+// 5. **Efecto Parallax**: Efecto en la imagen del héroe (se mueve más lentamente que el contenido)
+const hero = document.querySelector(".hero");
+
+window.addEventListener("scroll", () => {
+  let offset = window.pageYOffset;
+  hero.style.backgroundPositionY = offset * 0.7 + "px";
 });

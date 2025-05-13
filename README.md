@@ -2,36 +2,7 @@
 🎯 Objetivo del Sitio
 Presentar mi perfil personal y profesional de manera moderna e interactiva, destacando mis intereses, proyectos y facilitando el contacto.
 
-🧱 Estructura del Sitio
-Encabezado (Header)
-
-Nombre y ubicación.
-
-Menú de navegación responsive con Bootstrap.
-
-Botón para activar modo oscuro.
-
-Sección Hero
-
-Frase destacada: "Estudiante de inglés | Gamer | Escalador".
-
-Imagen de fondo representativa.
-
-Sobre Mí
-
-Breve biografía.
-
-Edad: 17 años.
-
-Estudios actuales: Inglés en Smart y BIT.
-
 Pasatiempos: Videojuegos y escalada.
-Asana
-+5
-Resoomer
-+5
-Presentations.AI
-+5
 
 Hobbies
 
